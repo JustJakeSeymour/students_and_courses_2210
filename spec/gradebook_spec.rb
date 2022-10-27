@@ -38,9 +38,44 @@ RSpec.describe Gradebook do
     student1.log_score(73)
     student2.log_score(81)
     student2.log_score(86)
-
     expect(gradebook.student_list_low_grades(course1)).to eq ["Morgan"]
-
-    
   end
+  it 'can find all grades across all courses' do
+    student4 = Student.new({name: "Abel", age: 9})
+    course1.enroll(student1)
+    course1.enroll(student2)
+    course2.enroll(student3)
+    course2.enroll(student4)
+    gradebook.assign_course(course1)
+    gradebook.assign_course(course2)
+    student1.log_score(60)
+    student1.log_score(73)
+    student2.log_score(81)
+    student2.log_score(86)
+    student3.log_score(72)
+    student3.log_score(75)
+    student4.log_score(95)
+    student4.log_score(92)
+
+    expect(gradebook.list_all_grades).to eq [[66.5, 83.5], [73.5, 93.5]]
+  end
+  it 'can find all students across all courses with grade range' do
+    student4 = Student.new({name: "Abel", age: 9})
+    course1.enroll(student1)
+    course1.enroll(student2)
+    course2.enroll(student3)
+    course2.enroll(student4)
+    gradebook.assign_course(course1)
+    gradebook.assign_course(course2)
+    student1.log_score(60)
+    student1.log_score(73)
+    student2.log_score(81)
+    student2.log_score(86)
+    student3.log_score(72)
+    student3.log_score(75)
+    student4.log_score(95)
+    student4.log_score(92)
+    expect(gradebook.all_students_with_low_grades).to eq [["Morgan"], ["Danny"]]
+  end
+
 end
