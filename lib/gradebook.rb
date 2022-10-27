@@ -47,6 +47,22 @@ class Gradebook
     students_with_low_grades
   end
 
+  def student_list_any_grades(course, low, high)
+    students_with_select_grades = []
+    course.students.map do |student|
+      if low <= student.grade && student.grade <= high
+       students_with_select_grades << student.name
+      end
+    end
+    students_with_select_grades
+  end
+
+  def all_students_with_any_grades(low, high)
+    @courses.map do |course|
+      student_list_any_grades(course, low, high)
+    end
+  end
+
   def list_all_grades
     @courses.map do |course|
       student_list_grade(course)
