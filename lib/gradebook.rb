@@ -30,5 +30,15 @@ class Gradebook
       student.name
     end
   end
-  
+
+  def student_list_low_grades(course)
+    students_with_low_grades = []
+    course.students.find_all do |student|
+      if student.grade < 70
+       students_with_low_grades << student.name
+      end
+    end
+    students_with_low_grades
+  end
+
 end

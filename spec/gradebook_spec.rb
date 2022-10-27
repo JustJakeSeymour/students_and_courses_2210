@@ -28,4 +28,19 @@ RSpec.describe Gradebook do
     gradebook.assign_course(course2)
     expect(gradebook.student_list(course1)).to eq ["Morgan", "Jordan"]
   end
+  it 'can list all students with a low grade' do
+    course1.enroll(student1)
+    course1.enroll(student2)
+    course2.enroll(student3)
+    gradebook.assign_course(course1)
+    gradebook.assign_course(course2)
+    student1.log_score(60)
+    student1.log_score(73)
+    student2.log_score(81)
+    student2.log_score(86)
+
+    expect(gradebook.student_list_low_grades(course1)).to eq ["Morgan"]
+
+    
+  end
 end
